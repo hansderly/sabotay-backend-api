@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { User } from '../interface';
 import { prisma } from '../db';
 
 const getUserFunc = (phone: string) => {
