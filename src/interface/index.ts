@@ -5,7 +5,7 @@ interface User {
   phone: string;
 }
 
-interface Organizer {
+interface Organizer extends User {
   username: string;
   email: string;
   password: string;
