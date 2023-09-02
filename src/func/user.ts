@@ -1,3 +1,4 @@
+import { User } from '@prisma/client';
 import { prisma } from '../db';
 
 const getUserFunc = (phone: string) => {
@@ -8,4 +9,8 @@ const getUserFunc = (phone: string) => {
   return user;
 };
 
-export { getUserFunc };
+const createUserFunc = (user: User) => {
+  prisma.user.create({ data: user });
+};
+
+export { getUserFunc, createUserFunc };
