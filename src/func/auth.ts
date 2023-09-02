@@ -1,9 +1,14 @@
 import bcrypt from 'bcrypt';
 import { prisma } from '../db';
-import { User, Organizer } from '../interface';
+import { Organizer } from '../interface';
 
 const hashPassword = (passowrd: string, saltRouds: number) =>
   bcrypt.hashSync(passowrd, saltRouds);
+
+const getHashPassword = async (username: string) => {
+  const organizer = await getOrganizer(username);
+  return organizer!.password;
+};
 
 const comparePassword = (plainPassword: string, hashPassword: string) =>
   bcrypt.compareSync(plainPassword, hashPassword);
@@ -17,6 +22,7 @@ const getOrganizer = (username: string) => {
 };
 
 const createOrganizer = async (organizer: Organizer) => {
+  console.log(organizer.password);
   const hash = hashPassword(organizer.password, 10);
 
   await prisma.user.create({
@@ -36,4 +42,4 @@ const createOrganizer = async (organizer: Organizer) => {
   });
 };
 
-export { getOrganizer, createOrganizer };
+export { getOrganizer, createOrganizer, comparePassword, getHashPassword };
