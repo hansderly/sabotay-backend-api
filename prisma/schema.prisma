@@ -53,7 +53,7 @@ model Groups {
   cycle_duration      Int
   start_date          DateTime
   end_date            DateTime
-  active              Boolean        @default(false)
+  active              Boolean        @default(true)
   User                User           @relation(fields: [user_id], references: [id])
   user_id             String
   GroupMembers        GroupMembers[]
