@@ -1,3 +1,4 @@
 import authRoutes from './auth';
+import groupRoutes from './group';
 
-export { authRoutes };
+export { authRoutes, groupRoutes };
