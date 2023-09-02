@@ -8,7 +8,7 @@ const hashPassword = (passowrd: string, saltRouds: number) =>
 const comparePassword = (plainPassword: string, hashPassword: string) =>
   bcrypt.compareSync(plainPassword, hashPassword);
 
-const getOrganizerFunc = (username: string) => {
+const getOrganizer = (username: string) => {
   const organizer = prisma.organizer.findUnique({ where: { username } });
 
   if (!organizer) return null;
@@ -16,13 +16,24 @@ const getOrganizerFunc = (username: string) => {
   return organizer;
 };
 
-const createOrganizerFunc = async (organizer: Organizer, user: User) => {
-  const organizerData = { create: organizer };
+const createOrganizer = async (organizer: Organizer) => {
+  const hash = hashPassword(organizer.password, 10);
 
   await prisma.user.create({
-    data: { ...user, Organizer: organizerData },
+    data: {
+      first_name: organizer.first_name,
+      last_name: organizer.last_name,
+      phone: organizer.phone,
+      Organizer: {
+        create: {
+          username: organizer.username,
+          email: organizer.email,
+          password: hash,
+        },
+      },
+    },
     include: { Organizer: true },
   });
 };
 
-export { getOrganizerFunc, createOrganizerFunc };
+export { getOrganizer, createOrganizer };
