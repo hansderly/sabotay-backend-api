@@ -9,3 +9,69 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum UserType {
+  ADMIN
+  MEMBER
+}
+
+enum Cycle {
+  DAILY
+  WEEKLY
+  BIWEEKLY
+  MONTHLY
+}
+
+model User {
+  id              String        @id @default(uuid())
+  first_name      String
+  last_name       String
+  role            UserType      @default(MEMBER)
+  GroupMembers    GroupMembers?
+  Contribution    Contribution? @relation(fields: [contribution_id], references: [id])
+  contribution_id String?
+  Group           Groups[]
+  Organizer       Organizer?
+}
+
+model Organizer {
+  id       String @id @default(uuid())
+  username String
+  email    String
+  password String
+
+  User    User   @relation(fields: [user_id], references: [id])
+  user_id String @unique
+}
+
+model Groups {
+  id                  String         @id @default(uuid())
+  name                String         @unique
+  contribution_amount Float
+  cycle               Cycle
+  cycle_duration      Int
+  start_date          DateTime
+  end_date            DateTime
+  active              Boolean        @default(false)
+  User                User           @relation(fields: [user_id], references: [id])
+  user_id             String
+  GroupMembers        GroupMembers[]
+  Contribution        Contribution?
+}
+
+model GroupMembers {
+  id       String @id @default(uuid())
+  User     User   @relation(fields: [user_id], references: [id])
+  user_id  String @unique
+  Group    Groups @relation(fields: [group_id], references: [id])
+  group_id String
+}
+
+model Contribution {
+  id                String   @id @default(uuid())
+  User              User[]
+  Group             Groups   @relation(fields: [group_id], references: [id])
+  group_id          String   @unique
+  contribution_date DateTime
+  added_date        DateTime @default(now())
+}
