@@ -1,5 +1,6 @@
 import { register, login } from './auth';
 import { createGroup, groupDetail, allGroup, deleteGroup } from './group';
+import { addUser, getUserDetail, userList, deleteUser } from './user';
 
 export {
   // auth
@@ -10,4 +11,9 @@ export {
   groupDetail,
   allGroup,
   deleteGroup,
+  // User
+  addUser,
+  getUserDetail,
+  userList,
+  deleteUser,
 };
