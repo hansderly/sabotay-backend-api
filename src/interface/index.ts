@@ -1,11 +1,5 @@
 // USER INTERFACE
-
-enum Cycle {
-  DAILY,
-  WEEKLY,
-  BIWEEKLY,
-  MONTHLY,
-}
+import { Cycle } from '@prisma/client';
 
 interface User {
   first_name: string;
@@ -26,6 +20,7 @@ interface Group {
   cycle_duration: number;
   start_date: string;
   end_date: string;
+  user_id: string;
 }
 
-export { User, Organizer };
+export { User, Organizer, Group };
