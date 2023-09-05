@@ -23,4 +23,9 @@ interface Group {
   user_id: string;
 }
 
-export { User, Organizer, Group };
+interface GroupMember {
+  user_id: string;
+  group_id: string;
+}
+
+export { User, Organizer, Group, GroupMember };
