@@ -28,11 +28,13 @@ model User {
   last_name       String
   phone           String        @unique
   role            UserType      @default(MEMBER)
-  GroupMembers    GroupMembers?
+  GroupMembers    GroupMember?
   Contribution    Contribution? @relation(fields: [contribution_id], references: [id])
   contribution_id String?
-  Group           Groups[]
+  Group           Group[]
   Organizer       Organizer?
+  createdAt       DateTime      @default(now())
+  updateAt        DateTime      @updatedAt
 }
 
 model Organizer {
@@ -45,34 +47,38 @@ model Organizer {
   user_id String @unique
 }
 
-model Groups {
-  id                  String         @id @default(uuid())
-  name                String         @unique
+model Group {
+  id                  String        @id @default(uuid())
+  name                String        @unique
   contribution_amount Float
   cycle               Cycle
   cycle_duration      Int
   start_date          DateTime
   end_date            DateTime
-  active              Boolean        @default(true)
-  User                User           @relation(fields: [user_id], references: [id])
+  active              Boolean       @default(true)
+  User                User          @relation(fields: [user_id], references: [id])
   user_id             String
-  GroupMembers        GroupMembers[]
+  GroupMembers        GroupMember[]
   Contribution        Contribution?
+  createdAt           DateTime      @default(now())
+  updateAt            DateTime      @updatedAt
 }
 
-model GroupMembers {
-  id       String @id @default(uuid())
-  User     User   @relation(fields: [user_id], references: [id])
-  user_id  String @unique
-  Group    Groups @relation(fields: [group_id], references: [id])
-  group_id String
+model GroupMember {
+  id        String   @id @default(uuid())
+  User      User     @relation(fields: [user_id], references: [id])
+  user_id   String   @unique
+  Group     Group    @relation(fields: [group_id], references: [id])
+  group_id  String
+  createdAt DateTime @default(now())
 }
 
 model Contribution {
   id                String   @id @default(uuid())
   User              User[]
-  Group             Groups   @relation(fields: [group_id], references: [id])
+  Group             Group    @relation(fields: [group_id], references: [id])
   group_id          String   @unique
   contribution_date DateTime
-  added_date        DateTime @default(now())
+  createdAt         DateTime @default(now())
+  updateAt          DateTime @updatedAt
 }
