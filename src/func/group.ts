@@ -3,18 +3,18 @@ import { prisma } from '../db';
 import { Group } from '../interface';
 
 const getgroup = async (name: string) =>
-  prisma.groups.findUnique({ where: { name } });
+  prisma.group.findUnique({ where: { name } });
 
 const getgroupById = async (id: string) =>
-  prisma.groups.findUnique({ where: { id } });
+  prisma.group.findUnique({ where: { id } });
 
 const createNewGroup = async (group: Group) =>
-  prisma.groups.create({ data: group });
+  prisma.group.create({ data: group });
 
-const getListGroup = async () => prisma.groups.findMany();
+const getListGroup = async () => prisma.group.findMany();
 
 const deleteThisGroup = async (id: string) =>
-  prisma.groups.delete({ where: { id } });
+  prisma.group.delete({ where: { id } });
 
 export {
   getgroupById,
