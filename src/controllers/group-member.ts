@@ -1,9 +1,11 @@
 import { RequestHandler } from 'express';
 import {
   addMemberToGroup,
+  deleteMember,
   getMember,
   listMemmberGroup,
 } from '../func/group-member';
+import { GroupMember } from '../interface';
 
 const addMember: RequestHandler = async (req, res) => {
   const { group_id } = req.params;
@@ -28,4 +30,16 @@ const listMember: RequestHandler = async (req, res) => {
   return res.status(200).json({ message: 'List group members', members });
 };
 
-export { addMember, listMember };
+const deleteMemberFromGroup: RequestHandler = async (req, res) => {
+  const member = req.params as unknown as GroupMember;
+  const isExist = await getMember(member);
+  if (!isExist)
+    return res.status(200).json({ message: 'This user in not in the group' });
+
+  await deleteMember(member);
+  return res
+    .status(200)
+    .json({ message: 'User remove from the group successfully' });
+};
+
+export { addMember, listMember, deleteMemberFromGroup };
