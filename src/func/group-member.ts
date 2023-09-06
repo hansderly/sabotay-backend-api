@@ -13,7 +13,7 @@ const addMemberToGroup = async (groupMember: GroupMember) => {
 };
 
 const listMemmberGroup = async (group_id: string) =>
-  prisma.groupMember.findMany({ where: { group_id }, select: { User: true } });
+  prisma.groupMember.findMany({ where: { group_id }, select: { user: true } });
 
 const deleteMember = async (groupMember: GroupMember) => {
   await prisma.groupMember.delete({ where: groupMember });
