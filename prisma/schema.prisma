@@ -28,10 +28,10 @@ model User {
   last_name    String
   phone        String         @unique
   role         UserType       @default(MEMBER)
-  GroupMembers GroupMember?
+  groupMembers GroupMember?
   contribution Contribution[]
-  Group        Group[]
-  Organizer    Organizer?
+  group        Group[]
+  organizer    Organizer?
   createdAt    DateTime       @default(now())
   updateAt     DateTime       @updatedAt
 }
@@ -42,7 +42,7 @@ model Organizer {
   email    String
   password String
 
-  User    User   @relation(fields: [user_id], references: [id])
+  user    User   @relation(fields: [user_id], references: [id])
   user_id String @unique
 }
 
@@ -55,9 +55,9 @@ model Group {
   start_date          DateTime
   end_date            DateTime
   active              Boolean        @default(true)
-  User                User           @relation(fields: [user_id], references: [id])
+  user                User           @relation(fields: [user_id], references: [id])
   user_id             String
-  GroupMembers        GroupMember[]
+  groupMembers        GroupMember[]
   contritbution       Contribution[]
   createdAt           DateTime       @default(now())
   updateAt            DateTime       @updatedAt
@@ -65,19 +65,19 @@ model Group {
 
 model GroupMember {
   id        String   @id @default(uuid())
-  User      User     @relation(fields: [user_id], references: [id])
+  user      User     @relation(fields: [user_id], references: [id])
   user_id   String   @unique
-  Group     Group    @relation(fields: [group_id], references: [id])
+  group     Group    @relation(fields: [group_id], references: [id])
   group_id  String
   createdAt DateTime @default(now())
 }
 
 model Contribution {
   id                String   @id @default(uuid())
-  Group             Group?   @relation(fields: [group_id], references: [id])
-  group_id          String?
-  User              User?    @relation(fields: [user_id], references: [id])
-  user_id           String?
+  group             Group    @relation(fields: [group_id], references: [id])
+  group_id          String
+  user              User     @relation(fields: [user_id], references: [id])
+  user_id           String
   contribution_date DateTime
   createdAt         DateTime @default(now())
   updateAt          DateTime @updatedAt
