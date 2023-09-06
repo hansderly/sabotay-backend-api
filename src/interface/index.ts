@@ -28,4 +28,8 @@ interface GroupMember {
   group_id: string;
 }
 
-export { User, Organizer, Group, GroupMember };
+interface Contribution {
+  group_id: string;
+}
+
+export { User, Organizer, Group, GroupMember, Contribution };

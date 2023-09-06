@@ -30,7 +30,8 @@ const createOrganizer = async (organizer: Organizer) => {
       first_name: organizer.first_name,
       last_name: organizer.last_name,
       phone: organizer.phone,
-      Organizer: {
+      role: 'ADMIN',
+      organizer: {
         create: {
           username: organizer.username,
           email: organizer.email,
@@ -38,7 +39,7 @@ const createOrganizer = async (organizer: Organizer) => {
         },
       },
     },
-    include: { Organizer: true },
+    include: { organizer: true },
   });
 };
 

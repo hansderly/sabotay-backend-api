@@ -5,6 +5,7 @@ import {
   groupRoutes,
   userRoutes,
   groupMemberRoutes,
+  contributionRoutes,
 } from './routes';
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(authRoutes);
 app.use(groupRoutes);
 app.use(userRoutes);
 app.use(groupMemberRoutes);
+app.use(contributionRoutes);
 
 const PORT = 2023;
 app.listen(PORT, () => console.log(`Server listening on PORT - ${PORT}`));
