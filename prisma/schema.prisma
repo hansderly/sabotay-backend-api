@@ -66,7 +66,7 @@ model Group {
 model GroupMember {
   id        String   @id @default(uuid())
   user      User     @relation(fields: [user_id], references: [id])
-  user_id   String   @unique
+  user_id   String
   group     Group    @relation(fields: [group_id], references: [id])
   group_id  String
   createdAt DateTime @default(now())
