@@ -28,7 +28,7 @@ model User {
   last_name    String
   phone        String         @unique
   role         UserType       @default(MEMBER)
-  groupMembers GroupMember?
+  groupMembers GroupMember[]
   contribution Contribution[]
   group        Group[]
   organizer    Organizer?
