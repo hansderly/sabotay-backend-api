@@ -5,24 +5,12 @@ import {
   deleteContribution,
   newContribution,
 } from '../controllers';
-import { checkGroupParams } from '../middlewares';
+import { checkGroup } from '../middlewares';
 
 const router = Router();
 
-router.post(
-  '/api/groups/:group_id/contributions',
-  checkGroupParams,
-  newContribution
-);
-router.get(
-  '/api/groups/:group_id/contributions',
-  checkGroupParams,
-  contributionList
-);
-router.delete(
-  '/api/groups/:group_id/contributions/:contribution_id',
-  checkGroupParams,
-  deleteContribution
-);
+router.post('/api/groups/:group_id/contributions', checkGroup, newContribution);
+router.get('/api/groups/:group_id/contributions', checkGroup, contributionList);
+router.delete( '/api/groups/:group_id/contributions/:contribution_id', checkGroup, deleteContribution);
 
 export default router;
