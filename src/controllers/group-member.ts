@@ -16,7 +16,7 @@ const addMember: RequestHandler = async (req, res) => {
     return res.status(409).json({ message: 'User already in group' });
 
   await addMemberToGroup({ user_id, group_id });
-  return res.status(201).json('User added to group successfully');
+  return res.status(201).json({ message: 'User added to group successfully' });
 };
 
 const listMember: RequestHandler = async (req, res) => {
