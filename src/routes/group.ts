@@ -5,10 +5,11 @@ import {
   deleteGroup,
   groupDetail,
 } from '../controllers';
+import { checkUser } from '../middlewares';
 
 const router = express.Router();
 
-router.post('/api/groups', createGroup);
+router.post('/api/groups', checkUser, createGroup);
 router.get('/api/groups', allGroup);
 router.get('/api/groups/:group_id', groupDetail);
 router.put('/api/groups/:group_id');
