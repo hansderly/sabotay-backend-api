@@ -22,7 +22,6 @@ const getOrganizer = (username: string) => {
 };
 
 const createOrganizer = async (organizer: Organizer) => {
-  console.log(organizer.password);
   const hash = hashPassword(organizer.password, 10);
 
   await prisma.user.create({

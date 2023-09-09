@@ -16,7 +16,7 @@ const addMember: RequestHandler = async (req, res) => {
     return res.status(409).json({ message: 'User already in group' });
 
   await addMemberToGroup({ user_id, group_id });
-  return res.status(201).json('User added to group successfully');
+  return res.status(201).json({ message: 'User added to group successfully' });
 };
 
 const listMember: RequestHandler = async (req, res) => {
@@ -32,9 +32,6 @@ const listMember: RequestHandler = async (req, res) => {
 
 const deleteMemberFromGroup: RequestHandler = async (req, res) => {
   const member = req.params as unknown as GroupMember;
-  const isExist = await getMember(member);
-  if (!isExist)
-    return res.status(200).json({ message: 'This user in not in the group' });
 
   await deleteMember(member);
   return res

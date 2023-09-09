@@ -11,9 +11,6 @@ import { getUserById } from '../func/user';
 const newContribution: RequestHandler = async (req, res) => {
   const { group_id } = req.params;
   const { user_id } = req.body;
-  const group = await getgroupById(group_id);
-  if (!group)
-    return res.status(401).json({ message: 'This group does not exist' });
 
   const user = await getUserById(user_id);
   if (!user)
@@ -25,9 +22,6 @@ const newContribution: RequestHandler = async (req, res) => {
 
 const contributionList: RequestHandler = async (req, res) => {
   const { group_id } = req.params;
-  const group = getgroupById(group_id);
-  if (!group)
-    return res.status(401).json({ message: 'This group does not exist' });
 
   const contributions = await listGroupContribution(group_id);
   if (!contributions.length)
@@ -38,9 +32,6 @@ const contributionList: RequestHandler = async (req, res) => {
 
 const deleteContribution: RequestHandler = async (req, res) => {
   const { group_id, contribution_id } = req.params;
-  const group = await getgroupById(group_id);
-  if (!group)
-    return res.status(401).json({ message: 'This group does not exist' });
 
   const contribution = await getContribution(contribution_id);
   if (!contribution)
