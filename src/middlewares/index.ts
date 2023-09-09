@@ -7,7 +7,7 @@ import { getgroupById } from '../func/group';
 const checkUser: RequestHandler = async (req, res, next) => {
   const user_id = req.params.user_id || req.body.user_id;
   const user = await getUserById(user_id);
-  if (!user) return res.status(200).json({ message: 'This user is not exit' });
+  if (!user) return res.status(200).json({ message: 'This user does not exit' });
 
   next();
 };
