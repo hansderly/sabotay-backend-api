@@ -22,7 +22,11 @@ const generateToken = (user: User) => {
 
 const decodeToken = (token: string) => {
   const secret = process.env.JWT_SECRET!;
-  return jwt.verify(token, secret);
+  try {
+    return jwt.verify(token, secret);
+  } catch (error) {
+    return error;
+  }
 };
 
 const hashPassword = (passowrd: string, saltRouds: number) =>
