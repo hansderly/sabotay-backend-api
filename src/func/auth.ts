@@ -1,6 +1,29 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { prisma } from '../db';
 import { Organizer } from '../interface';
+
+type User = {
+  id: string;
+  username: string;
+  role: string;
+};
+
+const generateToken = (user: User) => {
+  const secret = process.env.JWT_SECRET!;
+  const payload = {
+    _id: user.id,
+    iss: user.username,
+    role: user.role,
+  };
+
+  return jwt.sign(payload, secret);
+};
+
+const decodeToken = (token: string) => {
+  const secret = process.env.JWT_SECRET!;
+  return jwt.verify(token, secret);
+};
 
 const hashPassword = (passowrd: string, saltRouds: number) =>
   bcrypt.hashSync(passowrd, saltRouds);
@@ -42,4 +65,11 @@ const createOrganizer = async (organizer: Organizer) => {
   });
 };
 
-export { getOrganizer, createOrganizer, comparePassword, getHashPassword };
+export {
+  generateToken,
+  decodeToken,
+  getOrganizer,
+  createOrganizer,
+  comparePassword,
+  getHashPassword,
+};
