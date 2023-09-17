@@ -5,6 +5,7 @@ import {
   createOrganizer,
   comparePassword,
   getHashPassword,
+  generateToken,
 } from '../func/auth';
 
 interface Login {
@@ -25,9 +26,9 @@ const register: RequestHandler = async (req, res) => {
 
 const login: RequestHandler = async (req, res) => {
   const input: Login = req.body;
-  const isOrganizerExist = await getOrganizer(input?.username);
+  const organizer = await getOrganizer(input?.username);
 
-  if (!isOrganizerExist)
+  if (!organizer)
     return res.status(401).json({ message: 'No user with that username' });
 
   const isPasswordMatch = comparePassword(
@@ -38,7 +39,14 @@ const login: RequestHandler = async (req, res) => {
   if (!isPasswordMatch)
     return res.status(401).json({ message: 'Password incorrect' });
 
-  return res.status(200).json({ message: 'User login successfully' });
+  const payload = {
+    id: organizer.id,
+    username: organizer.username,
+    role: 'ADMIN',
+  };
+  const token = generateToken(payload);
+
+  return res.status(200).json({ message: 'User login successfully', token });
 };
 
 export { register, login };

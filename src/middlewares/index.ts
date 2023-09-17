@@ -3,11 +3,13 @@ import { getUserById } from '../func/user';
 import { getMember } from '../func/group-member';
 import { GroupMember } from '../interface';
 import { getgroupById } from '../func/group';
+import { decodeToken } from '../func/auth';
 
 const checkUser: RequestHandler = async (req, res, next) => {
   const user_id = req.params.user_id || req.body.user_id;
   const user = await getUserById(user_id);
-  if (!user) return res.status(200).json({ message: 'This user does not exit' });
+  if (!user)
+    return res.status(200).json({ message: 'This user does not exit' });
 
   next();
 };
@@ -29,4 +31,18 @@ const checkGroup: RequestHandler = async (req, res, next) => {
 
   next();
 };
-export { checkUser, checkMember, checkGroup };
+
+const authToken: RequestHandler = async (req, res, next) => {
+  const token = req.header('Authorization')?.split(' ')[1];
+  if (!token) return res.status(401).json({ message: 'No token provided' });
+
+  const decoded = decodeToken(token);
+  if (!decoded.valid)
+    return res
+      .status(500)
+      .json({ message: `${decoded.name} ${decoded.message}` });
+
+  next();
+};
+
+export { authToken, checkUser, checkMember, checkGroup };

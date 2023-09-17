@@ -1,8 +1,8 @@
-import { register, login } from './auth';
-import { createGroup, groupDetail, allGroup, deleteGroup } from './group';
-import { addUser, getUserDetail, userList, deleteUser } from './user';
-import { addMember, listMember, deleteMemberFromGroup } from './group-member';
-import { newContribution, contributionList, deleteContribution } from './contribution';
+import { register, login } from './auth.controller';
+import { createGroup, groupDetail, allGroup, deleteGroup } from './group.controller';
+import { addUser, getUserDetail, userList, deleteUser } from './user.controller';
+import { addMember, listMember, deleteMemberFromGroup } from './group-member.controller';
+import { newContribution, contributionList, deleteContribution } from './contribution.controller';
 
 export {
   // auth
