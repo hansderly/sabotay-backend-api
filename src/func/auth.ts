@@ -3,6 +3,18 @@ import jwt from 'jsonwebtoken';
 import { prisma } from '../db';
 import { Organizer } from '../interface';
 
+type Payload = {
+  _id: string;
+  iss: string;
+  role: string;
+  iat: number;
+};
+
+type JWTError =
+  | jwt.JsonWebTokenError
+  | jwt.TokenExpiredError
+  | jwt.NotBeforeError;
+
 type User = {
   id: string;
   username: string;
@@ -23,9 +35,13 @@ const generateToken = (user: User) => {
 const decodeToken = (token: string) => {
   const secret = process.env.JWT_SECRET!;
   try {
-    return jwt.verify(token, secret);
-  } catch (error) {
-    return error;
+    return { valid: true, ...(jwt.verify(token, secret) as Payload) };
+  } catch (err) {
+    return {
+      valid: false,
+      name: (err as JWTError).name,
+      message: (err as JWTError).message,
+    };
   }
 };
 
