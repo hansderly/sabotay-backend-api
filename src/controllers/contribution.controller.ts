@@ -5,7 +5,6 @@ import {
   listGroupContribution,
   deleteContribution as removeContribution,
 } from '../func/contribution';
-import { getgroupById } from '../func/group';
 import { getUserById } from '../func/user';
 
 const newContribution: RequestHandler = async (req, res) => {
