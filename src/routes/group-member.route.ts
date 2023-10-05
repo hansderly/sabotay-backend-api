@@ -10,7 +10,7 @@ router.post(
   [checkUser, checkGroup],
   addMember
 );
-router.get('/api/groups/:group_id/members', listMember);
+router.get('/api/groups/:group_id/members', checkGroup, listMember);
 router.delete(
   '/api/groups/:group_id/members/:user_id',
   checkMember,
