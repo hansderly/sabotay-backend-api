@@ -1,4 +1,5 @@
 import { RequestHandler } from 'express';
+import ErrorAPI from '../utils/error';
 import { Organizer } from '../interface';
 import {
   getOrganizer,
@@ -22,8 +23,7 @@ const register: RequestHandler = async (req, res, next) => {
     await createOrganizer(input);
     return res.status(201).json({ message: 'User created successfully' });
   } catch (error: any) {
-    const err = new Error('Something went wrong while creating the organizer');
-    (err as any).status = 500;
+    const err = new ErrorAPI( 'Something went wrong while creating the organizer');
     next(err);
   }
 };
@@ -49,8 +49,7 @@ const login: RequestHandler = async (req, res, next) => {
 
     return res.status(200).json({ message: 'User login successfully', token });
   } catch (error) {
-    const err = new Error('Something went wrong while logging the organizer');
-    (err as any).status = 500;
+    const err = new ErrorAPI('Something went wrong while logging the organizer');
     next(err);
   }
 };
