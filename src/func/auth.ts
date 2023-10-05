@@ -58,9 +58,7 @@ const comparePassword = (plainPassword: string, hashPassword: string) =>
 
 const getOrganizer = (username: string) => {
   const organizer = prisma.organizer.findUnique({ where: { username } });
-
   if (!organizer) return null;
-
   return organizer;
 };
 
