@@ -45,4 +45,8 @@ const authToken: RequestHandler = async (req, res, next) => {
   next();
 };
 
-export { authToken, checkUser, checkMember, checkGroup };
+const errorHandler = (err: any, req: any, res: any, next: any) => {
+  res.status(err.status || 500).json({ message: err.message });
+};
+
+export { authToken, checkUser, checkMember, checkGroup, errorHandler };
