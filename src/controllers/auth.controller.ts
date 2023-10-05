@@ -4,7 +4,6 @@ import {
   getOrganizer,
   createOrganizer,
   comparePassword,
-  getHashPassword,
   generateToken,
 } from '../func/auth';
 
@@ -31,10 +30,7 @@ const login: RequestHandler = async (req, res) => {
   if (!organizer)
     return res.status(401).json({ message: 'No user with that username' });
 
-  const isPasswordMatch = comparePassword(
-    input.password,
-    await getHashPassword(input.username)
-  );
+  const isPasswordMatch = comparePassword(input.password, organizer.password);
 
   if (!isPasswordMatch)
     return res.status(401).json({ message: 'Password incorrect' });
