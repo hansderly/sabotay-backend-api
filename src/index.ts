@@ -21,5 +21,5 @@ app.use(groupMemberRoutes);
 app.use(contributionRoutes);
 app.use(errorHandler);
 
-const PORT = 2023 || process.env.PORT;
+const PORT = 4000 || process.env.PORT;
 app.listen(PORT, () => console.log(`Server listening on PORT - ${PORT}`));
