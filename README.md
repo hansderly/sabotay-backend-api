@@ -23,6 +23,8 @@ The Group Savings Manager is a web-based application designed to facilitate coll
 - **Cycle Management:** Automatically manage savings cycles, ensuring equitable distribution of funds at the end of each cycle.
 
 - **Authentication & Security:** Secure user authentication and data protection to maintain the integrity of your users' financial data.
+  ### Working on
+- **Front-end:** I am working on a NextJS dashboard to consume the API
 
 ## Technologies Used
 
